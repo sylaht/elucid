@@ -1,0 +1,22 @@
+# Compiled object files
+*.o
+
+# Executables / binaries
+build/
+*.out
+*.exe
+
+# Backup and temporary files
+*~
+*.swp
+.DS_Store
+
+# Logs
+*.log
+
+# System-specific
+Thumbs.db
+
+# Optional: VS Code, Vim, etc.
+.vscode/
+.idea/
