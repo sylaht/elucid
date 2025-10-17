@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "commands.h"
+#include "file_utils.h"
 
 void handle_command(int argc, char *argv[])
 {
@@ -16,7 +17,7 @@ void handle_command(int argc, char *argv[])
 
   if (strcmp(command, "new") == 0)
   {
-    printf("Creating new note...\n");
+    create_note_for_today();
   }
   else if (strcmp(command, "list") == 0)
   {
