@@ -3,4 +3,6 @@
 
 void create_note_for_today();
 
+void list_notes();
+
 #endif

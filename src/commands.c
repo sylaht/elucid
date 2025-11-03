@@ -21,7 +21,7 @@ void handle_command(int argc, char *argv[])
   }
   else if (strcmp(command, "list") == 0)
   {
-    printf("Listing notes...\n");
+    list_notes();
   }
   else if (strcmp(command, "view") == 0)
   {

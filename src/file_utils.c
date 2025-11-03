@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "file_utils.h"
+#include <dirent.h>
 
 void create_note_for_today()
 {
@@ -22,4 +23,24 @@ void create_note_for_today()
   fclose(f);
 
   printf("Note created successfully in %s\n", filename);
+}
+
+void list_notes()
+{
+  DIR *dir = opendir("notes");
+  if (!dir)
+  {
+    perror("Failed to open notes directory");
+    return;
+  }
+
+  struct dirent *entry;
+  while ((entry = readdir(dir)) != NULL)
+  {
+    if (entry->d_name[0] == '.')
+      continue;
+    printf("%s\n", entry->d_name);
+  }
+
+  closedir(dir);
 }
