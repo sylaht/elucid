@@ -5,4 +5,6 @@ void create_note_for_today();
 
 void list_notes();
 
+void view_note_for_date(const char *date);
+
 #endif
