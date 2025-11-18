@@ -44,3 +44,24 @@ void list_notes()
 
   closedir(dir);
 }
+
+void view_note_for_date(const char *date)
+{
+  char filename[64];
+  snprintf(filename, sizeof(filename), "notes/%s.txt", date);
+
+  FILE *f = fopen(filename, "r");
+  if (!f)
+  {
+    perror("Failed to open note file");
+    return;
+  }
+
+  char line[256];
+  while (fgets(line, sizeof(line), f))
+  {
+    printf("%s", line);
+  }
+
+  fclose(f);
+}
