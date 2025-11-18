@@ -25,7 +25,12 @@ void handle_command(int argc, char *argv[])
   }
   else if (strcmp(command, "view") == 0)
   {
-    printf("Viewing note...\n");
+    if (argc < 3)
+    {
+      printf("Usage: elucid view <date>\n");
+      return;
+    }
+    view_note_for_date(argv[2]);
   }
   else if (strcmp(command, "edit") == 0)
   {
