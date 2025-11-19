@@ -7,4 +7,6 @@ void list_notes();
 
 void view_note_for_date(const char *date);
 
+void edit_note_for_date(const char *date);
+
 #endif
