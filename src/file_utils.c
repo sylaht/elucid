@@ -2,6 +2,7 @@
 #include <time.h>
 #include "file_utils.h"
 #include <dirent.h>
+#include <stdlib.h>
 
 void create_note_for_today()
 {
@@ -64,4 +65,17 @@ void view_note_for_date(const char *date)
   }
 
   fclose(f);
+}
+
+void edit_note_for_date(const char *date) 
+{
+  char filename[64];
+  snprintf(filename, sizeof(filename), "notes/%s.txt", date);
+
+  char *editor = getenv("EDITOR");
+  if (!editor) editor = "vim";
+
+  char cmd[120];
+  snprintf(cmd, sizeof(cmd), "%s %s", editor, filename);
+  system(cmd);
 }
