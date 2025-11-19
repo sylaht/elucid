@@ -34,7 +34,12 @@ void handle_command(int argc, char *argv[])
   }
   else if (strcmp(command, "edit") == 0)
   {
-    printf("Editing note...\n");
+    if (argc < 3)
+    {
+      printf("Usage: elucid edit <date>\n");
+      return;
+    }
+    edit_note_for_date(argv[2]);
   }
   else if (strcmp(command, "delete") == 0)
   {
