@@ -43,7 +43,12 @@ void handle_command(int argc, char *argv[])
   }
   else if (strcmp(command, "delete") == 0)
   {
-    printf("Deleting note...\n");
+    if (argc < 3)
+    {
+      printf("Usage: elucid delete <date>\n");
+      return;
+    }
+    delete_note_for_date(argv[2]);
   }
   else if (strcmp(command, "help") == 0)
   {

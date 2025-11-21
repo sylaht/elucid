@@ -79,3 +79,16 @@ void edit_note_for_date(const char *date)
   snprintf(cmd, sizeof(cmd), "%s %s", editor, filename);
   system(cmd);
 }
+
+void delete_note_for_date(const char *date)
+{
+  char filename[64];
+  snprintf(filename, sizeof(filename), "notes/%s.txt", date);
+
+  if (remove(filename) == 0)
+  {
+    printf("Note deleted successfully\n");
+  } else {
+    perror("Failed to delete note file");
+  }
+}
