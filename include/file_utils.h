@@ -11,4 +11,6 @@ void edit_note_for_date(const char *date);
 
 void delete_note_for_date(const char *date);
 
+void search_notes(const char *keyword);
+
 #endif
