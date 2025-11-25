@@ -3,6 +3,7 @@
 #include "file_utils.h"
 #include <dirent.h>
 #include <stdlib.h>
+#include <string.h>
 
 void create_note_for_today()
 {
@@ -90,5 +91,40 @@ void delete_note_for_date(const char *date)
     printf("Note deleted successfully\n");
   } else {
     perror("Failed to delete note file");
+  }
+}
+
+void search_notes(const char *keyword) {
+  DIR *dir = opendir("notes");
+  if (!dir) {
+      perror("Erro ao abrir diretório notes/");
+      return;
+  }
+
+  struct dirent *entry;
+  char path[128], line[512];
+  int found_any = 0;
+
+  while ((entry = readdir(dir)) != NULL) {
+      if (entry->d_name[0] == '.') continue;
+
+      snprintf(path, sizeof(path), "notes/%s", entry->d_name);
+      FILE *f = fopen(path, "r");
+      if (!f) continue;
+
+      while (fgets(line, sizeof(line), f)) {
+          if (strstr(line, keyword)) {
+              printf("[%s] %s", entry->d_name, line);
+              found_any = 1;
+          }
+      }
+
+      fclose(f);
+  }
+
+  closedir(dir);
+
+  if (!found_any) {
+      printf("Nenhuma ocorrência de \"%s\" encontrada.\n", keyword);
   }
 }
