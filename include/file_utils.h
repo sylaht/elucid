@@ -13,4 +13,6 @@ void delete_note_for_date(const char *date);
 
 void search_notes(const char *keyword);
 
+void list_notes_by_tag(const char *tag);
+
 #endif
