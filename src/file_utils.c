@@ -68,13 +68,14 @@ void view_note_for_date(const char *date)
   fclose(f);
 }
 
-void edit_note_for_date(const char *date) 
+void edit_note_for_date(const char *date)
 {
   char filename[64];
   snprintf(filename, sizeof(filename), "notes/%s.txt", date);
 
   char *editor = getenv("EDITOR");
-  if (!editor) editor = "vim";
+  if (!editor)
+    editor = "vim";
 
   char cmd[120];
   snprintf(cmd, sizeof(cmd), "%s %s", editor, filename);
@@ -89,42 +90,52 @@ void delete_note_for_date(const char *date)
   if (remove(filename) == 0)
   {
     printf("Note deleted successfully\n");
-  } else {
+  }
+  else
+  {
     perror("Failed to delete note file");
   }
 }
 
-void search_notes(const char *keyword) {
+void search_notes(const char *keyword)
+{
   DIR *dir = opendir("notes");
-  if (!dir) {
-      perror("Erro ao abrir diretório notes/");
-      return;
+  if (!dir)
+  {
+    perror("Failed to open notes directory");
+    return;
   }
 
   struct dirent *entry;
   char path[128], line[512];
   int found_any = 0;
 
-  while ((entry = readdir(dir)) != NULL) {
-      if (entry->d_name[0] == '.') continue;
+  while ((entry = readdir(dir)) != NULL)
+  {
+    if (entry->d_name[0] == '.')
+      continue;
 
-      snprintf(path, sizeof(path), "notes/%s", entry->d_name);
-      FILE *f = fopen(path, "r");
-      if (!f) continue;
+    snprintf(path, sizeof(path), "notes/%s", entry->d_name);
+    FILE *f = fopen(path, "r");
+    if (!f)
+      continue;
 
-      while (fgets(line, sizeof(line), f)) {
-          if (strstr(line, keyword)) {
-              printf("[%s] %s", entry->d_name, line);
-              found_any = 1;
-          }
+    while (fgets(line, sizeof(line), f))
+    {
+      if (strstr(line, keyword))
+      {
+        printf("[%s] %s", entry->d_name, line);
+        found_any = 1;
       }
+    }
 
-      fclose(f);
+    fclose(f);
   }
 
   closedir(dir);
 
-  if (!found_any) {
-      printf("Nenhuma ocorrência de \"%s\" encontrada.\n", keyword);
+  if (!found_any)
+  {
+    printf("No occurrences of \"%s\" found.\n", keyword);
   }
 }
