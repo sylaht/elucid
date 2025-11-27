@@ -139,3 +139,44 @@ void search_notes(const char *keyword)
     printf("No occurrences of \"%s\" found.\n", keyword);
   }
 }
+void list_notes_by_tag(const char *tag)
+{
+  DIR *dir = opendir("notes");
+  if (!dir)
+  {
+    perror("Failed to open notes directory");
+    return;
+  }
+
+  struct dirent *entry;
+  char path[128], line[256];
+  int found = 0;
+
+  while ((entry = readdir(dir)) != NULL)
+  {
+    if (entry->d_name[0] == '.')
+      continue;
+
+    snprintf(path, sizeof(path), "notes/%s", entry->d_name);
+    FILE *f = fopen(path, "r");
+    if (!f)
+      continue;
+
+    for (int i = 0; i < 3 && fgets(line, sizeof(line), f); i++)
+    {
+      if (strstr(line, tag))
+      {
+        printf("[%s]\n", entry->d_name);
+        found = 1;
+        break;
+      }
+    }
+
+    fclose(f);
+  }
+
+  closedir(dir);
+
+  if (!found)
+    printf("No notes found with the tag %s\n", tag);
+}
