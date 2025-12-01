@@ -59,6 +59,16 @@ void handle_command(int argc, char *argv[])
     }
     search_notes(argv[2]);
   }
+  else if (strcmp(command, "tag") == 0)
+  {
+    if (argc < 3)
+    {
+      printf("Usage: elucid tag <#nome>\n");
+      return;
+    }
+    list_notes_by_tag(argv[2]);
+  }
+
   else if (strcmp(command, "help") == 0)
   {
     printf("Commands available: new, list, view, edit, delete\n");
